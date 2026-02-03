@@ -1,4 +1,5 @@
 import os
+import webbrowser
 import random
 from dataclasses import dataclass
 from tkinter import *
@@ -18,13 +19,6 @@ dialogs = ("Ось ти й попався, Азіров!",
            )
 photos = (0, 1, 0, 2, 0)
 dialog_index = 0
-#план - 51 завдання на рід V, 20 на спрощення V, 20 на у/в V, 20 на і/й, 10 на е/и,
-#20 на ь, 20 на апостроѳ, 10 на кптхѳ, 30 на велику букву й лапки, 30 складних іменників разом/деѳіс, 
-# 10 не разом/окремо, 10 перенос (так/ні), ЛЕКСИКА (скільки зможу, буду також брати відео Максима Прудеуса)
-# 10 ѳемінітивів, 3 (Ігорӧвич, Лазарӧвич, Якович), 10 звертань, ДРУЖНИЙ і ДРУЖНІЙ (4 приклади), природний, зворотний, додатний
-# 5 на ступені порівняння (самий, більш -іший), 20 розписати числа буквами, 10 назвати час за цифровим записом, 10 збірні числівники, 
-# 15 займенників разом/окремо/деѳіс, 20 кома при зворотах (10 дієприкм. 10 дієприсл.), 20 прислівники разом/окремо/деѳіс   
-#20 - свобода, [15-19] слуга, [10-14] чіп, [5-9] розстріл, [1-4] на гілляку, 0 - мідний бик
 selected_questions = []
 question_number = 0
 correct_answers = 0
@@ -33,7 +27,7 @@ current_correct_answer = 0
 current_explanation = ""
 radiobuttons = []
 def display_info():
-    messagebox.showinfo("Про гру", "Автор: Шульга Роман\nВерсія: 1.0\nВихідний код: ")
+    messagebox.showinfo("Про гру", "Автор: Шульга Роман\nВерсія: 1.0\nВихідний код: https://github.com/ShulhaCorporation/AzarovSimulator")
 def continue_dialog():
     global dialog_index
     dialog_index+=1
@@ -72,6 +66,7 @@ def start_exam():
 
 def load_question():
     selected_variant.set(0)
+    correct_answers_label.config(text="Правильних: "+str(correct_answers))
     for radiobutton in radiobuttons:
         radiobutton.pack_forget()
     radiobuttons.clear()
@@ -82,8 +77,7 @@ def load_question():
         return
     question = selected_questions[question_number-1]
     dialog_label.config(text=question.question)
-    question_number_label.config(text=str(question_number)+"/20")
-    correct_answers_label.config(text="Правильних: "+str(correct_answers))
+    question_number_label.config(text=str(question_number)+"/20")   
     iteration = 0
     for answer in question.answers:
         iteration+=1
@@ -127,6 +121,8 @@ def game_end():
         speaker_image_label.config(image=ending_bull)
         dialog_label.config(text="Ви відповіли на 0 запитань правильно.\n МІДНИЙ БИК", bg="red", fg="white")
 
+def open_github():
+    webbrowser.open("https://github.com/ShulhaCorporation/AzarovSimulator")
 dialog_label = Label(text=dialogs[0], font=("Times New Roman", 20))
 
 avramenko_image = PhotoImage(file=os.path.join("pictures", "Avramenko.png"))
@@ -139,15 +135,17 @@ ending_chip = PhotoImage(file=os.path.join("pictures", "endingChip.png"))
 ending_shoot = PhotoImage(file=os.path.join("pictures", "endingShoot.png"))
 ending_hangman = PhotoImage(file=os.path.join("pictures", "endingHangman.png"))
 ending_bull = PhotoImage(file=os.path.join("pictures", "endingBull.png"))
+github_logo = PhotoImage(file=os.path.join("pictures", "githubLogo.png"))
 
 speaker_image_label = Label(root, image=avramenko_image)
 continue_button = Button(text="⟶", font=("Times New Roman", 20), bg="white", command=continue_dialog)
 info_button = Button(image=info_sign, command=display_info)
+github_button = Button(image=github_logo, command=open_github)
 speaker_image_label.pack(pady=40)
 dialog_label.pack(pady=30)
 continue_button.place(relx=0.45, rely=0.80)
 info_button.place(relx=0.9, rely=0.9)
-
+github_button.place(relx=0.1, rely=0.9)
 #for debug
 '''
 def hack_score():
