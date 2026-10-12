@@ -16,7 +16,7 @@
 Гра написана на Python з бібліотекою Tkinter.
 
 ### 1. Скачати готову програму
-https://drive.proton.me/urls/983ZWXMY0M#UQG8nXLSlCls
+https://dpakohdpa.itch.io/azarovsim
 ### 2. Якщо у вас є Python
 Клонуйте репозиторій за допомогою Git, або завантажте zip-версію репозиторію й розпакуйте її. У терміналі (Windows або Linux) перейдіть до папки з кодом та запустіть main.py:
 ```
